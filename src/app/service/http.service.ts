@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap, map } from 'rxjs/operators';
 
 import { OpenWeatherBase, APIType } from '../const/open-weather.enum';
 
@@ -16,32 +16,81 @@ export class HttpService {
 
   }
 
-  getCurrentWeather(city: string, units: string): Observable<any> {
+  /**
+   * 
+   * @param city - city name
+   * @param units - units
+   */
+  getWeather(city: string, units: string): Observable<any> {
     return this.http.get(
       OpenWeatherBase.baseUrl + APIType.weather + city +
       '&appid=' + OpenWeatherBase.appId +
       '&units=' + units
     ).pipe(
-      tap(res => res),
-      catchError(this.handleError('getCurrentWeather', []))
+      tap(_ => this.log(`getCurrentWeather city=${city}`)),
+      catchError(this.errorHandler)
     )
   }
 
-  getForecast(city:string, units: string): Observable<any> {
+  getForecast(city: string, units: string): Observable<any> {
     return this.http.get(
       OpenWeatherBase.baseUrl + APIType.forecast + city +
       '&appid=' + OpenWeatherBase.appId +
       '&units=' + units
     ).pipe(
-      tap(res => res),
-      catchError(this.handleError('getForecast', []))
+      tap(_ => this.log(`getForecast city=${city}`)),
+      map(res => res['list']),
+      catchError(this.errorHandler)
     )
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      return of(result as T);
-    };
+  /**
+   * 
+   * @param lat - latitude 
+   * @param lon - longitude
+   * @param units - units
+   */
+  getWeatherByCoordinates(lat: number, lon: number, units: string): Observable<any> {
+    return this.http.get(
+      OpenWeatherBase.baseUrl + APIType.weather +
+      '&lat=' + lat +
+      '&lon=' + lon +
+      '&appid=' + OpenWeatherBase.appId +
+      '&units=' + units
+    ).pipe(
+      tap(_ => this.log(`getCurrentWeather lat=${lat}, lon=${lon}`)),
+      catchError(this.errorHandler)
+    )
+  }
+
+  getForecastByCoordinates(lat: number, lon: number, units: string): Observable<any> {
+    return this.http.get(
+      OpenWeatherBase.baseUrl + APIType.forecast +
+      '&lat=' + lat +
+      '&lon=' + lon +
+      '&appid=' + OpenWeatherBase.appId +
+      '&units=' + units
+    ).pipe(
+      tap(_ => this.log(`getForecast lat=${lat}, lon=${lon}`)),
+      map(res => res['list']),
+      catchError(this.errorHandler)
+    )
+  }
+
+  getWeatherIcon(id: string): Observable<any> {
+    return this.http.get(
+      OpenWeatherBase.baseIconUrl + id + '.png'
+    ).pipe(
+      catchError(this.errorHandler)
+    )
+  }
+
+  private log(message: string) {
+    console.log(message);
+  }
+
+  private errorHandler(error: HttpErrorResponse) {
+    return throwError(error.error || 'Server Error');
   }
 
 

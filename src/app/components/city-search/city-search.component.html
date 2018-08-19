@@ -1,3 +1,6 @@
-<p>
-  city-search works! {{city}}
-</p>
+<div>
+  <label for="city">City Name:</label>
+  <input type="text" id="city" [(ngModel)]="city" placeholder="City Name">
+  <button (click)="onSubmit()">Search</button>
+  <!-- <i class="wi wi-night-sleet"></i> -->
+</div>

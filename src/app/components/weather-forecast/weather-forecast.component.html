@@ -1,3 +1,2 @@
-<p>
-  weather-forecast works!
-</p>
+<app-weather-item *ngFor="let weather of forecastData; let i = index;" [weatherItem]="weather">    
+</app-weather-item>
