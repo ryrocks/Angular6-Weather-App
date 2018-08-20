@@ -1,6 +1,8 @@
 <article *ngIf="!isDaily">
   <div class="text-center">
-    <img [src]="iconUrl">
+    <div class="img-wrapper">
+      <img [src]="iconUrl">
+    </div>
     <div *ngIf="!units">{{ weather.main.temp | number:'1.0-0'}}&#8451;</div>
     <div *ngIf="units">{{ weather.main.temp | number:'1.0-0'}}&#8457;</div>
     <div>{{ dt_txt}}</div>
@@ -8,7 +10,9 @@
 </article>
 <article *ngIf="isDaily">
   <div class="text-center">
-    <img [src]="iconUrl">
+    <div class="img-wrapper">
+      <img [src]="iconUrl">
+    </div>
     <div *ngIf="!units">{{ weather.temp.day | number:'1.0-0'}}&#8451;</div>
     <div *ngIf="units">{{ weather.temp.day | number:'1.0-0'}}&#8457;</div>
     <div>{{ week_txt }} </div>

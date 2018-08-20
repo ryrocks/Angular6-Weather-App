@@ -11,7 +11,7 @@ import { OpenWeatherBase } from '../../const/open-weather.enum';
 export class WeatherNowadaysComponent implements OnInit {
 
   weather: any;
-  iconUrl: string = '';
+  iconUrl: string;
   units: boolean;
 
   constructor(private _dataService: DataService) {
@@ -31,6 +31,16 @@ export class WeatherNowadaysComponent implements OnInit {
       this.units = data;
     });
 
+  }
+
+  getIconStyle() {
+    let iconStyle = {
+      'background-image': this.iconUrl ? `url(${this.iconUrl})` : '',
+      'background-repeat': 'no-repeat',
+      'background-position': 'center',
+      'background-size': 'cover'
+    };
+    return iconStyle;
   }
 
 }

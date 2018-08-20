@@ -13,7 +13,8 @@ export class CitySearchComponent implements OnInit, OnChanges {
   units: string = 'Metric';
   city: string = '';
   lastFlag: string = 'city';
-  
+  errorMsg: string = '';
+
 
   constructor(
     private _httpClient: HttpService,
@@ -25,7 +26,7 @@ export class CitySearchComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this._dataService.unitData.subscribe(units => {
-      this.units = units ? 'Imperial': 'Metric';
+      this.units = units ? 'Imperial' : 'Metric';
       if (this.lastFlag === 'city') {
         this.onSubmit();
       } else {
@@ -48,6 +49,7 @@ export class CitySearchComponent implements OnInit, OnChanges {
   }
 
   onSubmit(latitude?: number, longitude?: number) {
+    this.errorMsg = '';
 
     if (latitude && longitude) {
       this._httpClient.getWeatherByCoordinates(latitude, longitude, this.units)
@@ -55,7 +57,7 @@ export class CitySearchComponent implements OnInit, OnChanges {
           res => {
             this._dataService.setWeatherData(res);
           },
-          error => console.log(error)
+          error => this.errorMsg = error.message
         );
 
       this._httpClient.getForecastByCoordinates(latitude, longitude, this.units)
@@ -63,7 +65,7 @@ export class CitySearchComponent implements OnInit, OnChanges {
           res => {
             this._dataService.setForecastData(res);
           },
-          error => console.log(error)
+          error => this.errorMsg = error.message
         );
 
       this._httpClient.getForecastDailyByCoordinates(latitude, longitude, this.units)
@@ -71,7 +73,7 @@ export class CitySearchComponent implements OnInit, OnChanges {
           res => {
             this._dataService.setForecastDailyData(res);
           },
-          error => console.log(error)
+          error => this.errorMsg = error.message
         );
     } else {
       let city = '';
@@ -86,7 +88,7 @@ export class CitySearchComponent implements OnInit, OnChanges {
           res => {
             this._dataService.setWeatherData(res);
           },
-          error => console.log(error)
+          error => this.errorMsg = error.message
         );
 
       this._httpClient.getForecast(city, this.units)
@@ -94,7 +96,7 @@ export class CitySearchComponent implements OnInit, OnChanges {
           res => {
             this._dataService.setForecastData(res);
           },
-          error => console.log(error)
+          error => this.errorMsg = error.message
         );
 
       this._httpClient.getForecastDaily(city, this.units)
@@ -102,7 +104,7 @@ export class CitySearchComponent implements OnInit, OnChanges {
           res => {
             this._dataService.setForecastDailyData(res);
           },
-          error => console.log(error)
+          error => this.errorMsg = error.message
         );
     }
 

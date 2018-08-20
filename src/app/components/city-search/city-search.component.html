@@ -1,5 +1,7 @@
-<div class="d-flex justify-content-center">
-  <label for="city">City Name:</label>
-  <input type="text" id="city" [(ngModel)]="city" placeholder="City Name">
-  <button (click)="onSubmit()">Search</button>
+<div class="d-flex justify-content-center wrapper">
+  <input type="text" class="search-field" [(ngModel)]="city" placeholder="City Name">
+  <button type="submit" class="search-button" (click)="onSubmit()">
+    <i class="fa fa-search"></i>
+  </button>
+  <span *ngIf="errorMsg !== ''" class="error-msg">{{errorMsg}}</span>
 </div>

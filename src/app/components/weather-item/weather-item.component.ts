@@ -35,4 +35,13 @@ export class WeatherItemComponent implements OnInit {
     }
   }
 
+  // getIconStyle() {
+  //   let iconStyle = {
+  //     'background-image': this.iconUrl ? `url(${this.iconUrl})` : '',
+  //     'background-repeat': 'no-repeat',
+  //     'background-position': 'center',
+  //     'background-size': 'cover'
+  //   };
+  //   return iconStyle;
+  // }
 }
