@@ -7,7 +7,8 @@ export enum OpenWeatherBase {
 
 export enum APIType {
     weather = 'weather?q=',
-    forecast = 'forecast?q='
+    forecast = 'forecast?q=',
+    forecastDaily = 'forecast/daily?q='
 }
 
 // Temperature. Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit.

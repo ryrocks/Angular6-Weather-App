@@ -1,34 +1,35 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { HttpService } from '../../service/http.service'
+import { Component, OnInit, Input } from '@angular/core';
+import { OpenWeatherBase } from '../../const/open-weather.enum';
 
 @Component({
   selector: 'app-weather-item',
   templateUrl: './weather-item.component.html',
   styleUrls: ['./weather-item.component.scss']
 })
-export class WeatherItemComponent implements OnInit, OnChanges {
+export class WeatherItemComponent implements OnInit {
   @Input('weatherItem') weather: any;
-  iconUrl: string = '';
+  @Input('isDaily') isDaily: boolean;
 
-  constructor(private _httpClient: HttpService) { }
+  iconUrl: string = '';
+  dt_txt: string;
+  week_txt: string;
+
+  constructor() { }
 
   ngOnInit() {
-  }
+    this.iconUrl = OpenWeatherBase.baseIconUrl + this.weather.weather[0].icon + '.png';
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.weatherItem) {
-      this.getWeatherIcon();
+    if (this.weather) {
+      this.formatData();
     }
   }
 
-  getWeatherIcon() {
-    this._httpClient.getWeatherIcon(this.weather.weather[0].icon)
-      .subscribe(
-        res => {
-          this.iconUrl = res;
-        },
-        error => console.log(error)
-      );
+  formatData() {
+    if (!this.isDaily) {
+      this.dt_txt = this.weather.dt_txt.split(' ')[1].substring(0, 2);
+    } else {
+      this.week_txt = new Date(this.weather.dt * 1000).toString().substring(0, 3);
+    }
   }
 
 }

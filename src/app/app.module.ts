@@ -10,13 +10,15 @@ import { WeatherForecastComponent } from './components/weather-forecast/weather-
 import { HttpService } from './service/http.service';
 import { DataService } from './service/data.service';
 import { WeatherItemComponent } from './components/weather-item/weather-item.component';
+import { WeatherNowadaysComponent } from './components/weather-nowadays/weather-nowadays.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CitySearchComponent,
     WeatherForecastComponent,
-    WeatherItemComponent
+    WeatherItemComponent,
+    WeatherNowadaysComponent
   ],
   imports: [
     BrowserModule,

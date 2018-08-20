@@ -9,12 +9,13 @@ import { DataService } from '../../service/data.service';
 export class WeatherForecastComponent implements OnInit {
 
   forecastData: any[];
+  forecastDailyData: any[];
 
   constructor(private _dataService: DataService) { }
 
   ngOnInit() {
-    // this._dataService.weatherData.subscribe(data => console.log(data));
     this._dataService.forecastData.subscribe(data => this.forecastData = data);
+    this._dataService.forecastDailyData.subscribe(data => this.forecastDailyData = data);
   }
 
 }

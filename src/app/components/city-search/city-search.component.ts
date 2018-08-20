@@ -10,7 +10,7 @@ import { DataService } from '../../service/data.service';
 export class CitySearchComponent implements OnInit, OnChanges {
   @Input() latitude: number;
   @Input() longitude: number;
-  city: string = 'Taipei';
+  city: string = '';
   units: string = 'Metric';
 
   constructor(
@@ -31,6 +31,8 @@ export class CitySearchComponent implements OnInit, OnChanges {
 
     if (latitude && longitude) {
       this.onSubmit(latitude, longitude);
+    } else {
+      this.onSubmit();
     }
   }
 
@@ -52,8 +54,23 @@ export class CitySearchComponent implements OnInit, OnChanges {
           },
           error => console.log(error)
         );
+
+      this._httpClient.getForecastDailyByCoordinates(latitude, longitude, this.units)
+        .subscribe(
+          res => {
+            this._dataService.getForecastDailyData(res);
+          },
+          error => console.log(error)
+        );
     } else {
-      this._httpClient.getWeather(this.city, this.units)
+      let city = '';
+      if (this.city === '') {
+        city = 'Taipei';
+      } else {
+        city = this.city;
+      }
+
+      this._httpClient.getWeather(city, this.units)
         .subscribe(
           res => {
             this._dataService.getWeatherData(res);
@@ -61,10 +78,18 @@ export class CitySearchComponent implements OnInit, OnChanges {
           error => console.log(error)
         );
 
-      this._httpClient.getForecast(this.city, this.units)
+      this._httpClient.getForecast(city, this.units)
         .subscribe(
           res => {
             this._dataService.getForecastData(res);
+          },
+          error => console.log(error)
+        );
+
+      this._httpClient.getForecastDaily(city, this.units)
+        .subscribe(
+          res => {
+            this._dataService.getForecastDailyData(res);
           },
           error => console.log(error)
         );

@@ -44,6 +44,18 @@ export class HttpService {
     )
   }
 
+  getForecastDaily(city: string, units: string): Observable<any> {
+    return this.http.get(
+      OpenWeatherBase.baseUrl + APIType.forecastDaily + city +
+      '&appid=' + OpenWeatherBase.appId +
+      '&units=' + units
+    ).pipe(
+      tap(_ => this.log(`getForecast city=${city}`)),
+      map(res => res['list']),
+      catchError(this.errorHandler)
+    )
+  }
+
   /**
    * 
    * @param lat - latitude 
@@ -58,7 +70,7 @@ export class HttpService {
       '&appid=' + OpenWeatherBase.appId +
       '&units=' + units
     ).pipe(
-      tap(_ => this.log(`getCurrentWeather lat=${lat}, lon=${lon}`)),
+      tap(_ => this.log(`getWeatherByCoordinates lat=${lat}, lon=${lon}`)),
       catchError(this.errorHandler)
     )
   }
@@ -71,19 +83,26 @@ export class HttpService {
       '&appid=' + OpenWeatherBase.appId +
       '&units=' + units
     ).pipe(
-      tap(_ => this.log(`getForecast lat=${lat}, lon=${lon}`)),
+      tap(_ => this.log(`getForecastByCoordinates lat=${lat}, lon=${lon}`)),
       map(res => res['list']),
       catchError(this.errorHandler)
     )
   }
 
-  getWeatherIcon(id: string): Observable<any> {
+  getForecastDailyByCoordinates(lat: number, lon: number, units: string): Observable<any> {
     return this.http.get(
-      OpenWeatherBase.baseIconUrl + id + '.png'
+      OpenWeatherBase.baseUrl + APIType.forecastDaily +
+      '&lat=' + lat +
+      '&lon=' + lon +
+      '&appid=' + OpenWeatherBase.appId +
+      '&units=' + units
     ).pipe(
+      tap(_ => this.log(`getForecastDailyByCoordinates lat=${lat}, lon=${lon}`)),
+      map(res => res['list']),
       catchError(this.errorHandler)
     )
   }
+
 
   private log(message: string) {
     console.log(message);

@@ -1,10 +1,20 @@
-<article >
-  <div >
-      <h2 style="text-transform: uppercase;"> {{ weather.weather[0].main }}</h2>
-      <h3 > {{ weather.weather[0].description }}</h3>
-      <p >Wind speed (meter/sec): {{ weather.wind.speed }}</p>
-      <span class="temperature">Temperature (celsius): {{ weather.main.temp }} </span>
-      <p>{{ weather.dt_txt}}</p>
-      <img [src]="iconUrl">
+<article *ngIf="!isDaily">
+  <div class="text-center">
+    <img [src]="iconUrl">
+    <!-- <h2 style="text-transform: uppercase;"> {{ weather.weather[0].main }}</h2> -->
+    <!-- <h3> {{ weather.weather[0].description }}</h3> -->
+    <!-- <p>Wind speed (meter/sec): {{ weather.wind.speed }}</p> -->
+    <h4>{{ weather.main.temp }} </h4>
+    <span>{{ dt_txt}}</span>
+  </div>
+</article>
+<article *ngIf="isDaily">
+  <div class="text-center">
+    <img [src]="iconUrl">
+    <!-- <h2 style="text-transform: uppercase;"> {{ weather.weather[0].main }}</h2> -->
+    <h4> {{ weather.temp.day }}</h4>
+    <!-- <p>Wind speed (meter/sec): {{ weather.wind.speed }}</p> -->
+    <span>{{ week_txt }} </span>
+    <!-- <p>{{ weather.dt_txt}}</p> -->
   </div>
 </article>

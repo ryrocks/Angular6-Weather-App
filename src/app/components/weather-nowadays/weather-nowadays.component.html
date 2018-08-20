@@ -1,0 +1,27 @@
+<div class="wrapper d-flex justify-content-center align-items-center">
+  <div *ngIf="!weather.weather" class="lds-ring">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <div *ngIf="weather.weather" class="d-flex flex-column">
+    <h2 class="text-center">{{weather.name}}</h2>
+    <div class="d-flex justify-content-center">
+      <div class="d-flex">
+        <div class="d-flex flex-column">
+          <div class="flex-100 justify-content-center align-items-center img-wrapper">
+            <img [src]="iconUrl">
+          </div>
+          <div>{{ weather.weather ? weather.weather[0].description : ''}}</div>
+        </div>
+        <div class="d-flex flex-column">
+          <div class="flex-100 justify-content-center align-items-center">
+            <h3 class="text-center">{{weather.main?.temp}} &#8451;</h3>
+          </div>
+          <div>{{weather.main?.temp_min}}&#8451; ~ {{ weather.main?.temp_max}}&#8451;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
