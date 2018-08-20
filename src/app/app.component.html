@@ -5,11 +5,24 @@
         <span class="off">F</span>
     </div>
 </label>
-<div *ngIf="!isLandscape">
-    <app-weather-nowadays></app-weather-nowadays>
-    <app-city-search [latitude]="latitude" [longitude]="longitude"></app-city-search>
-    <app-weather-forecast class="d-flex flex-column justify-content-around align-items-center"></app-weather-forecast>
-</div>
-<div *ngIf="isLandscape">
-    Loading...
-</div>
+
+<!-- <div > -->
+    <div class="d-flex flex-column" [ngClass]="{'landscapeMode' : isLandscape}">
+        <div class="main-info flex-100">
+            <app-weather-nowadays></app-weather-nowadays>
+            <app-city-search [latitude]="latitude" [longitude]="longitude"></app-city-search>
+        </div>
+        <app-weather-forecast class="d-flex flex-column justify-content-around align-items-center flex-100"></app-weather-forecast>
+    </div>
+<!-- </div> -->
+
+
+<!-- <div [ngClass]="!isLandscape">
+    <div class="d-flex flex-row">
+        <div class="main-info flex-100">
+            <app-weather-nowadays></app-weather-nowadays>
+            <app-city-search [latitude]="latitude" [longitude]="longitude"></app-city-search>
+        </div>
+        <app-weather-forecast class="d-flex flex-column justify-content-around align-items-center flex-100"></app-weather-forecast>
+    </div>
+</div> -->
