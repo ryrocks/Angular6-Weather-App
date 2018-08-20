@@ -5,6 +5,11 @@
         <span class="off">F</span>
     </div>
 </label>
-<app-weather-nowadays></app-weather-nowadays>
-<app-city-search [latitude]="latitude" [longitude]="longitude"></app-city-search>
-<app-weather-forecast class="d-flex flex-column justify-content-around align-items-center"></app-weather-forecast>
+<div *ngIf="!isLandscape">
+    <app-weather-nowadays></app-weather-nowadays>
+    <app-city-search [latitude]="latitude" [longitude]="longitude"></app-city-search>
+    <app-weather-forecast class="d-flex flex-column justify-content-around align-items-center"></app-weather-forecast>
+</div>
+<div *ngIf="isLandscape">
+    Loading...
+</div>

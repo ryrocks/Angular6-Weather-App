@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
 import { DataService } from './service/data.service';
+import { GeneralService } from './service/general.service';
 
 @Component({
   selector: 'app-root',
@@ -11,15 +12,31 @@ export class AppComponent implements OnInit {
   latitude: number;
   longitude: number;
   units: boolean = false;
+  isLandscape: boolean = false;
 
   constructor(
-    private _dataService: DataService
+    private _dataService: DataService,
+
+    private _generalService: GeneralService,
+
+    private renderer: Renderer2,
+
+    private el: ElementRef
   ) {
 
   }
 
   ngOnInit() {
     this.getLocation();
+
+    // event binding
+    this.renderer.listen('window', 'orientationchange', () => this.onOrientationChange());
+
+    // get first detection for isLandscape
+    this.onOrientationChange();
+
+    // set isLandscape
+    this._generalService.isLandScapeData.subscribe(data => this.isLandscape = data);
   }
 
   changeUnit() {
@@ -38,6 +55,19 @@ export class AppComponent implements OnInit {
       );
     } else {
       console.log("Geolocation is not supported by this browser.");
+    }
+  }
+
+  onOrientationChange() {
+    switch (window.orientation) {
+      case -90:
+        this._generalService.setIsLandscapeData(true);
+        break;
+      case 90:
+        this._generalService.setIsLandscapeData(true);
+        break;
+      default:
+        this._generalService.setIsLandscapeData(false);
     }
   }
 }

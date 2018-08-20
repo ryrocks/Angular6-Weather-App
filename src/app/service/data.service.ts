@@ -9,7 +9,7 @@ export class DataService {
   private weatherSource = new BehaviorSubject({});
   private forecastSource = new BehaviorSubject([]);
   private forecastDailySource = new BehaviorSubject([]);
-  private unitSource = new BehaviorSubject(false);
+  private unitSource = new BehaviorSubject(null);
 
   weatherData = this.weatherSource.asObservable();
   forecastData = this.forecastSource.asObservable();
@@ -19,22 +19,22 @@ export class DataService {
   constructor() { }
 
   setWeatherData(data: any) {
-    console.log('setWeatherData:::', data);
+    // console.log('setWeatherData:::', data);
     this.weatherSource.next(data);
   }
 
   setForecastData(data: any) {
-    console.log('setForecastData:::', data);
+    // console.log('setForecastData:::', data);
     this.forecastSource.next(data);
   }
 
   setForecastDailyData(data: any) {
-    console.log('setForecastDailyData:::', data);
+    // console.log('setForecastDailyData:::', data);
     this.forecastDailySource.next(data);
   }
 
   setUnitData(data: boolean) {
-    console.log('setUnitData:::', data);
+    // console.log('setUnitData:::', data);
     this.unitSource.next(data);
   }
 

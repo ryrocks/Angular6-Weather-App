@@ -105,7 +105,7 @@ export class HttpService {
 
 
   private log(message: string) {
-    console.log(message);
+    // console.log(message);
   }
 
   private errorHandler(error: HttpErrorResponse) {
