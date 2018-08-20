@@ -1,3 +1,10 @@
+<label class="switch">
+    <input type="checkbox" id="togBtn" [checked]="units" (change)="changeUnit()">
+    <div class="slider round">
+        <span class="on">C</span>
+        <span class="off">F</span>
+    </div>
+</label>
 <app-weather-nowadays></app-weather-nowadays>
 <app-city-search [latitude]="latitude" [longitude]="longitude"></app-city-search>
-<app-weather-forecast class="d-flex flex-column justify-content-center align-items-center"></app-weather-forecast>
+<app-weather-forecast class="d-flex flex-column justify-content-around align-items-center"></app-weather-forecast>

@@ -12,6 +12,7 @@ export class WeatherNowadaysComponent implements OnInit {
 
   weather: any;
   iconUrl: string = '';
+  units: boolean;
 
   constructor(private _dataService: DataService) {
 
@@ -24,7 +25,10 @@ export class WeatherNowadaysComponent implements OnInit {
       if (this.weather.weather) {
         this.iconUrl = OpenWeatherBase.baseIconUrl + this.weather.weather[0].icon + '.png';
       }
+    });
 
+    this._dataService.unitData.subscribe(data => {
+      this.units = data;
     });
 
   }

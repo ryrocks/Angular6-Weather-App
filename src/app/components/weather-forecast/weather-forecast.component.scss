@@ -1,8 +1,12 @@
 :host {
-    min-height: 60vh;
+    height: 50vh;
 }
 
 .wrapper {
     width: 80%;
     overflow-x: scroll;
+}
+
+h5 {
+    margin-bottom: 0;
 }

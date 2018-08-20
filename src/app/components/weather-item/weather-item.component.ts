@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OpenWeatherBase } from '../../const/open-weather.enum';
+import { DataService } from '../../service/data.service';
 
 @Component({
   selector: 'app-weather-item',
@@ -13,10 +14,12 @@ export class WeatherItemComponent implements OnInit {
   iconUrl: string = '';
   dt_txt: string;
   week_txt: string;
+  units: boolean;
 
-  constructor() { }
+  constructor(private _dataService: DataService) { }
 
   ngOnInit() {
+    this._dataService.unitData.subscribe(data => this.units = data);
     this.iconUrl = OpenWeatherBase.baseIconUrl + this.weather.weather[0].icon + '.png';
 
     if (this.weather) {

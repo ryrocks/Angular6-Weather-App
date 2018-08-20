@@ -2,7 +2,6 @@
 body {
   background-color: #6EC3CB;
   color: #636171;
-
 }
 
 .d-flex {
@@ -15,6 +14,10 @@ body {
 
 .justify-content-center {
     justify-content: center;
+}
+
+.justify-content-around {
+  justify-content: space-around;
 }
 
 .align-items-center {

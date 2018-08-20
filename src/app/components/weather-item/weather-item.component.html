@@ -1,20 +1,16 @@
 <article *ngIf="!isDaily">
   <div class="text-center">
     <img [src]="iconUrl">
-    <!-- <h2 style="text-transform: uppercase;"> {{ weather.weather[0].main }}</h2> -->
-    <!-- <h3> {{ weather.weather[0].description }}</h3> -->
-    <!-- <p>Wind speed (meter/sec): {{ weather.wind.speed }}</p> -->
-    <h4>{{ weather.main.temp }} </h4>
-    <span>{{ dt_txt}}</span>
+    <div *ngIf="!units">{{ weather.main.temp | number:'1.0-0'}}&#8451;</div>
+    <div *ngIf="units">{{ weather.main.temp | number:'1.0-0'}}&#8457;</div>
+    <div>{{ dt_txt}}</div>
   </div>
 </article>
 <article *ngIf="isDaily">
   <div class="text-center">
     <img [src]="iconUrl">
-    <!-- <h2 style="text-transform: uppercase;"> {{ weather.weather[0].main }}</h2> -->
-    <h4> {{ weather.temp.day }}</h4>
-    <!-- <p>Wind speed (meter/sec): {{ weather.wind.speed }}</p> -->
-    <span>{{ week_txt }} </span>
-    <!-- <p>{{ weather.dt_txt}}</p> -->
+    <div *ngIf="!units">{{ weather.temp.day | number:'1.0-0'}}&#8451;</div>
+    <div *ngIf="units">{{ weather.temp.day | number:'1.0-0'}}&#8457;</div>
+    <div>{{ week_txt }} </div>
   </div>
 </article>

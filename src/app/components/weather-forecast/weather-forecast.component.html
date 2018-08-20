@@ -1,8 +1,15 @@
-<div class="d-flex wrapper">
-    <app-weather-item *ngFor="let weather of forecastData; let i = index;" [weatherItem]="weather" [isDaily]="false">
-    </app-weather-item>
+<div class="wrapper">
+    <h5>3 HOUR FORECAST</h5>
+    <div class="d-flex">
+        <app-weather-item *ngFor="let weather of forecastData; let i = index;" [weatherItem]="weather" [isDaily]="false">
+        </app-weather-item>
+    </div>
 </div>
-<div class="d-flex wrapper">
-    <app-weather-item *ngFor="let weatherDaily of forecastDailyData; let i = index;" [weatherItem]="weatherDaily" [isDaily]="true">
-    </app-weather-item>
+
+<div class="wrapper">
+    <h5>DAILY FORECAST</h5>
+    <div class="d-flex">
+        <app-weather-item *ngFor="let weatherDaily of forecastDailyData; let i = index;" [weatherItem]="weatherDaily" [isDaily]="true">
+        </app-weather-item>
+    </div>
 </div>
