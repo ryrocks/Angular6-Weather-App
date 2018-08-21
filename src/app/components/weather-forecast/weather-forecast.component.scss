@@ -1,12 +1,18 @@
 :host {
-    height: 50vh;
+    padding: 2em;
 }
 
 .wrapper {
-    width: 80%;
+    min-height: 100px;
     overflow-x: scroll;
+    overflow-y: hidden;
+    padding: 0.5em;
+    border: 1px solid #eae5e5;
+    text-align: center;
 }
 
 h5 {
-    margin-bottom: 0;
+    border: 1px solid #eae5e5;
+    padding: 5px;
+    margin-bottom: 3px;
 }

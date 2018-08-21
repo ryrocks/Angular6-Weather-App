@@ -5,7 +5,7 @@
     </div>
     <div *ngIf="!units">{{ weather.main.temp | number:'1.0-0'}}&#8451;</div>
     <div *ngIf="units">{{ weather.main.temp | number:'1.0-0'}}&#8457;</div>
-    <div>{{ dt_txt}}</div>
+    <div>{{ timeConverter(dt_txt) }}</div>
   </div>
 </article>
 <article *ngIf="isDaily">

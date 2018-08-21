@@ -40,10 +40,8 @@ export class CitySearchComponent implements OnInit, OnChanges {
     const longitude = changes.longitude.currentValue;
 
     if (latitude && longitude) {
-      this.lastFlag = 'cor';
       this.onSubmit(latitude, longitude);
     } else {
-      this.lastFlag = 'city';
       this.onSubmit();
     }
   }
@@ -52,6 +50,7 @@ export class CitySearchComponent implements OnInit, OnChanges {
     this.errorMsg = '';
 
     if (latitude && longitude) {
+      this.lastFlag = 'cor';
       this._httpClient.getWeatherByCoordinates(latitude, longitude, this.units)
         .subscribe(
           res => {
@@ -76,12 +75,10 @@ export class CitySearchComponent implements OnInit, OnChanges {
           error => this.errorMsg = error.message
         );
     } else {
-      let city = '';
-      if (this.city === '') {
-        city = 'Taipei';
-      } else {
-        city = this.city;
-      }
+      let city = this.city === '' ? 'Taipei' : this.city;
+
+      this.city = city;
+      this.lastFlag = 'city';
 
       this._httpClient.getWeather(city, this.units)
         .subscribe(

@@ -10,13 +10,13 @@
     <div class="d-flex justify-content-center">
       <div class="d-flex">
         <div class="d-flex flex-column info-wrapper">
-          <div class="flex-100 justify-content-center align-items-center img-wrapper" [ngStyle]="getIconStyle()">
+          <div class="flex-1 justify-content-center align-items-center img-wrapper" [ngStyle]="getIconStyle()">
             <!-- <img [src]="iconUrl"> -->
           </div>
           <div class="description">{{ weather.weather ? (weather.weather[0].description | uppercase) : ''}}</div>
         </div>
         <div class="d-flex flex-column info-wrapper">
-          <div class="flex-100 justify-content-center align-items-center">
+          <div class="flex-1 justify-content-center align-items-center">
             <h3 *ngIf="!units" class="text-center">{{weather.main?.temp | number:'1.0-0'}}&#8451;</h3>
             <h3 *ngIf="units" class="text-center">{{weather.main?.temp | number:'1.0-0'}}&#8457;</h3>
           </div>

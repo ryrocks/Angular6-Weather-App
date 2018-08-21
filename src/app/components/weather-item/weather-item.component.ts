@@ -35,13 +35,10 @@ export class WeatherItemComponent implements OnInit {
     }
   }
 
-  // getIconStyle() {
-  //   let iconStyle = {
-  //     'background-image': this.iconUrl ? `url(${this.iconUrl})` : '',
-  //     'background-repeat': 'no-repeat',
-  //     'background-position': 'center',
-  //     'background-size': 'cover'
-  //   };
-  //   return iconStyle;
-  // }
+  timeConverter(time) {
+    let hour = Number(time);
+    hour = hour % 12 || 12;
+    let ampm = (hour < 12 || hour === 24) ? "AM" : "PM";
+    return hour + ampm;
+  }
 }
