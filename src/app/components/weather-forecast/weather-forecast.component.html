@@ -7,9 +7,10 @@
         <div></div>
     </div>
     <div class="d-flex">
-        <app-weather-item *ngFor="let weather of forecastData; let i = index;" [weatherItem]="weather" [isDaily]="false">
+        <app-weather-item *ngFor="let weather of forecastData[0].series" [weatherItem]="weather" [isDaily]="false">
         </app-weather-item>
     </div>
+
 </div>
 
 <h5>DAILY FORECAST</h5>
@@ -21,7 +22,14 @@
         <div></div>
     </div>
     <div class="d-flex">
-        <app-weather-item *ngFor="let weatherDaily of forecastDailyData; let i = index;" [weatherItem]="weatherDaily" [isDaily]="true">
+        <app-weather-item *ngFor="let weatherDaily of forecastDailyData[0].series" [weatherItem]="weatherDaily" [isDaily]="true">
         </app-weather-item>
     </div>
+    <div *ngIf="isShowChat">
+        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="forecastDailyData" [gradient]="gradient" [xAxis]="showXAxis"
+            [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel" [autoScale]="autoScale" (select)="onSelect($event)">
+        </ngx-charts-line-chart>
+    </div>
+
 </div>

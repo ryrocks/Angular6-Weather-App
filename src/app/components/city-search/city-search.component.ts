@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { DataService } from '../../service/data.service';
+import { GeneralService } from '../../service/general.service';
 
 @Component({
   selector: 'app-city-search',
@@ -12,14 +13,15 @@ export class CitySearchComponent implements OnInit, OnChanges {
   @Input() longitude: number;
   units: string = 'Metric';
   city: string = '';
-  lastFlag: string = 'city';
   errorMsg: string = '';
 
 
   constructor(
     private _httpClient: HttpService,
 
-    private _dataService: DataService
+    private _dataService: DataService,
+
+    private _generalService: GeneralService
   ) {
 
   }
@@ -27,11 +29,11 @@ export class CitySearchComponent implements OnInit, OnChanges {
   ngOnInit() {
     this._dataService.unitData.subscribe(units => {
       this.units = units ? 'Imperial' : 'Metric';
-      if (this.lastFlag === 'city') {
-        this.onSubmit();
-      } else {
-        this.onSubmit(this.latitude, this.longitude);
-      }
+      this.onSubmit();
+    });
+
+    this._generalService.cityData.subscribe(city => {
+      this.city = city;
     });
   }
 
@@ -50,10 +52,12 @@ export class CitySearchComponent implements OnInit, OnChanges {
     this.errorMsg = '';
 
     if (latitude && longitude) {
-      this.lastFlag = 'cor';
+
       this._httpClient.getWeatherByCoordinates(latitude, longitude, this.units)
         .subscribe(
           res => {
+            this._generalService.setCityData(res.name);
+            this.city = res.name;
             this._dataService.setWeatherData(res);
           },
           error => this.errorMsg = error.message
@@ -77,8 +81,7 @@ export class CitySearchComponent implements OnInit, OnChanges {
     } else {
       let city = this.city === '' ? 'Taipei' : this.city;
 
-      this.city = city;
-      this.lastFlag = 'city';
+      this._generalService.setCityData(city);
 
       this._httpClient.getWeather(city, this.units)
         .subscribe(
